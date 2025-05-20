@@ -1,28 +1,26 @@
-const socket = new WebSocket("ws://localhost:6969");
+//variables & constants
+const socket = new WebSocket("ws://########:6969");//ServerIP
+const form = document.getElementById('myForm');
+const input = document.getElementById('text');
 
+//functions
+function getMessage() {
+    socket.onmessage = (event) => {
+        input.value = event.data
+    };
+}
+function handleInput(value) {
+    socket.send(value)
+}
+
+
+//eventListeners
 socket.addEventListener("open", (event) => {
     console.log("Connection Established");
     getMessage()
 });
 
-const form = document.getElementById('myForm');
-const input = document.getElementById('text');
-
 form.addEventListener('input', (e) => {
     e.preventDefault();
     handleInput(input.value);
 });
-
-getMessage()
-
-function getMessage() {
-    socket.onmessage = (event) => {
-        console.log(event.data);
-        input.value = event.data
-    };
-}
-
-function handleInput(value) {
-    console.log("Input value:", value);
-    socket.send(value)
-}

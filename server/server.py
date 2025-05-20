@@ -16,7 +16,7 @@ async def handle_client(websocket):
         connected_clients.remove(websocket)
 
 async def main():
-    server = await websockets.serve(handle_client, 'localhost', 6969)
+    server = await websockets.serve(handle_client, '0.0.0.0', 6969)
     await server.wait_closed()
     
 
